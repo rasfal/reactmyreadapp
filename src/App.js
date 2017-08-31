@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import { connect, mapStateToProps } from 'react-redux';
 
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
@@ -47,7 +45,4 @@ class BooksApp extends Component {
   }
 }
 
-//export default BooksApp;
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(BooksApp)
-);
+export default BooksApp;
