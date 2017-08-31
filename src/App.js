@@ -34,13 +34,6 @@ class BooksApp extends Component {
           <Route path="/new" render={() => <NewHome />} />
         </div>
       </Router>
-      //    {this.state.screen === 'home' &&
-      //    <ListBooks
-      //    onSearch={() => {
-      //    this.setState({ screen: 'search' });
-      //    }}
-      //    />}
-      //  {this.state.screen === 'search' && <SearchBooks />}
     );
   }
 }
