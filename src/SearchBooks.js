@@ -14,7 +14,9 @@ class SearchBooks extends Component {
   };
 
   searchBooks(bookQuery) {
-    console.log(bookQuery);
+    //  console.log(bookQuery);
+    this.setState({ bookQuery: bookQuery.trim() });
+
     BooksAPI.search(bookQuery, 20).then(books => {
       this.setState({ books });
     });
@@ -28,6 +30,7 @@ class SearchBooks extends Component {
 
     if (bookQuery) {
       const mtch = new RegExp(escapeRegExp(bookQuery), 'i');
+      console.log(books);
 
       showingBooks = books.filter(
         cnt => mtch.test(cnt.title) || mtch.test(cnt.authors)
