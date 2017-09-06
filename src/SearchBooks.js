@@ -9,17 +9,17 @@ class SearchBooks extends Component {
     books: []
   };
 
-  updateQry = bookQuery => {
-    this.setState({ bookQuery: bookQuery.trim() });
-  };
+  // updateQry = bookQuery => {
+  //   this.setState({ bookQuery: bookQuery.trim() });
+  // };
 
   searchBooks(bookQuery) {
-    //  console.log(bookQuery);
-    this.setState({ bookQuery: bookQuery.trim() });
-
-    BooksAPI.search(bookQuery, 20).then(books => {
-      this.setState({ books });
-    });
+    this.setState({ bookQuery });
+    if (bookQuery) {
+      BooksAPI.search(bookQuery, 20).then(books => {
+        this.setState({ books });
+      });
+    }
   }
 
   render() {
@@ -30,11 +30,13 @@ class SearchBooks extends Component {
 
     if (bookQuery) {
       const mtch = new RegExp(escapeRegExp(bookQuery), 'i');
-      console.log(books);
-
-      showingBooks = books.filter(
-        cnt => mtch.test(cnt.title) || mtch.test(cnt.authors)
-      );
+      if (books.error) {
+        showingBooks = books;
+      } else {
+        showingBooks = books.filter(
+          cnt => mtch.test(cnt.title) || mtch.test(cnt.authors)
+        );
+      }
     } else {
       showingBooks = books;
     }
@@ -66,8 +68,9 @@ class SearchBooks extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {bookQuery &&
+              showingBooks.error === undefined &&
               showingBooks.map(book =>
-                <li key={book.title}>
+                <li key={Math.random()}>
                   <div className="book">
                     <div className="book-top">
                       <div
