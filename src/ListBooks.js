@@ -4,7 +4,7 @@ import Books from './Books';
 
 class ListBooks extends Component {
   render() {
-    const { books, shelf } = this.props;
+    const { books, shelf, onUpdateShelf } = this.props;
 
     return (
       <div className="list-books">
@@ -19,7 +19,11 @@ class ListBooks extends Component {
                   {shelves}
                 </h2>
                 <div className="bookshelf-books">
-                  <Books books={books} shelves={shelves} />
+                  <Books
+                    books={books}
+                    shelves={shelves}
+                    onUpdateShelf={onUpdateShelf}
+                  />
                 </div>
               </div>
             )}

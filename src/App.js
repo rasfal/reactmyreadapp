@@ -18,6 +18,16 @@ class BooksApp extends Component {
     });
   }
 
+  onUpdateShelf = (book, shelf) => {
+    console.log('Changed Here: ' + book.title, shelf);
+
+    BooksAPI.update(book, shelf).then(books => {
+      BooksAPI.getAll().then(books => {
+        this.setState({ books });
+      });
+    });
+  };
+
   render() {
     const { books, shelf } = this.state;
 
@@ -27,9 +37,22 @@ class BooksApp extends Component {
           <Route
             exact
             path="/"
-            render={() => <ListBooks books={books} shelf={shelf} />}
+            render={() =>
+              <ListBooks
+                books={books}
+                shelf={shelf}
+                onUpdateShelf={this.onUpdateShelf}
+              />}
           />
-          <Route path="/search" render={() => <SearchBooks books={books} />} />
+          <Route
+            path="/search"
+            render={() =>
+              <SearchBooks
+                books={books}
+                onUpdateShelf={this.onUpdateShelf}
+                shelf={shelf}
+              />}
+          />
         </div>
       </BrowserRouter>
     );

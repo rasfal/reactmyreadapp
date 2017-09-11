@@ -9,10 +9,6 @@ class SearchBooks extends Component {
     books: []
   };
 
-  // updateQry = bookQuery => {
-  //   this.setState({ bookQuery: bookQuery.trim() });
-  // };
-
   searchBooks(bookQuery) {
     this.setState({ bookQuery });
     if (bookQuery) {
@@ -23,8 +19,8 @@ class SearchBooks extends Component {
   }
 
   render() {
-    const { bookQuery } = this.state;
-    const { books } = this.state;
+    const { books, bookQuery } = this.state;
+    const { onUpdateShelf } = this.props;
 
     let showingBooks;
 
@@ -83,7 +79,11 @@ class SearchBooks extends Component {
                         }}
                       />
                       <div className="book-shelf-changer">
-                        <select>
+                        <select
+                          value={book.shelf}
+                          onChange={event =>
+                            onUpdateShelf(book, event.target.value)}
+                        >
                           <option value="none" disabled>
                             Move to...
                           </option>

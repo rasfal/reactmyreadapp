@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+
 import './App.css';
 
 class Books extends Component {
   render() {
-    const { books, shelves } = this.props;
+    const { books, onUpdateShelf } = this.props;
+
+    console.log(books);
 
     let listBooks; // This variable filters the books array to match with the shelf passed
-    listBooks = books.filter(book => book.shelf === shelves);
+    listBooks = books.filter(book => book.shelf === this.props.shelves);
 
     return (
       <ol className="books-grid">
@@ -23,7 +26,11 @@ class Books extends Component {
                   }}
                 />
                 <div className="book-shelf-changer">
-                  <select>
+                  <select
+                    value={book.shelf}
+                    //  onChange={event => this.getChange(event.target.value, book)}
+                    onChange={event => onUpdateShelf(book, event.target.value)}
+                  >
                     <option value="none" disabled>
                       Move to...
                     </option>
