@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
 import * as BooksAPI from './BooksAPI';
@@ -18,14 +17,27 @@ class BooksApp extends Component {
     });
   }
 
-  onUpdateShelf = (book, shelf) => {
-    console.log('Changed Here: ' + book.title, shelf);
+  onUpdateShelfSrch = (book, shelf) => {
+    let bookList = this.state.books;
+    book.shelf = shelf;
+    bookList.push({ ...book });
+    this.setState({ books: bookList });
+  };
 
-    BooksAPI.update(book, shelf).then(books => {
-      BooksAPI.getAll().then(books => {
-        this.setState({ books });
-      });
+  onUpdateShelf = (id, shelf) => {
+    let book,
+      bookList = this.state.books;
+
+    bookList.filter(item => {
+      if (item.id === id) {
+        book = item;
+        book.shelf = shelf;
+      }
+      return false;
     });
+    BooksAPI.update(book, shelf);
+
+    this.setState({ books: bookList });
   };
 
   render() {
@@ -49,8 +61,8 @@ class BooksApp extends Component {
             render={() =>
               <SearchBooks
                 books={books}
-                onUpdateShelf={this.onUpdateShelf}
                 shelf={shelf}
+                onUpdateShelfSrch={this.onUpdateShelfSrch}
               />}
           />
         </div>

@@ -6,8 +6,6 @@ class Books extends Component {
   render() {
     const { books, onUpdateShelf } = this.props;
 
-    console.log(books);
-
     let listBooks; // This variable filters the books array to match with the shelf passed
     listBooks = books.filter(book => book.shelf === this.props.shelves);
 
@@ -29,7 +27,8 @@ class Books extends Component {
                   <select
                     value={book.shelf}
                     //  onChange={event => this.getChange(event.target.value, book)}
-                    onChange={event => onUpdateShelf(book, event.target.value)}
+                    onChange={event =>
+                      onUpdateShelf(book.id, event.target.value)}
                   >
                     <option value="none" disabled>
                       Move to...
