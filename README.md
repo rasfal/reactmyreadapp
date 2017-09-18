@@ -5,5 +5,6 @@ This is a application build as part of Udacity Nanodesgree program. It provides 
 The search page provides an option to search a list of books, API providing the search results is limited by the search terms https://github.com/KevinSjoberg/my-reads/blob/master/SEARCH_TERMS.md
 
 Setup
-Run npm install
+======
 
+npm install
