@@ -16,7 +16,7 @@ class ListBooks extends Component {
             {shelf.map(shelves =>
               <div key={Math.random()} className="bookshelf">
                 <h2 className="bookshelf-title">
-                  {shelves}
+                  {shelves.toUpperCase()}
                 </h2>
                 <div className="bookshelf-books">
                   <Books

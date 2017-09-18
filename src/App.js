@@ -17,17 +17,30 @@ class BooksApp extends Component {
     });
   }
 
+  // function used when the shelf is update in the search page
   onUpdateShelfSrch = (book, shelf) => {
     let bookList = this.state.books;
+    //If the user updates the same book which is already in state then remove it
+    //and push it back with updated shelf
+    let bookremoved = bookList.filter(function(el) {
+      return el.id !== book.id;
+    });
+
+    // updating the shelf and push to the list
     book.shelf = shelf;
-    bookList.push({ ...book });
-    this.setState({ books: bookList });
+    bookremoved.push({ ...book });
+
+    BooksAPI.update(book, shelf);
+
+    this.setState({ books: bookremoved });
   };
 
+  // function used when the shelf is updated in the main page
   onUpdateShelf = (id, shelf) => {
     let book,
       bookList = this.state.books;
 
+    //using fiter
     bookList.filter(item => {
       if (item.id === id) {
         book = item;

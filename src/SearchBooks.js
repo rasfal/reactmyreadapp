@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import escapeRegExp from 'escape-string-regexp';
 import * as BooksAPI from './BooksAPI';
+import lodash from 'lodash';
 
 class SearchBooks extends Component {
   state = {
@@ -13,17 +14,11 @@ class SearchBooks extends Component {
     this.setState({ bookQuery });
     if (bookQuery) {
       BooksAPI.search(bookQuery, 20).then(srchbooks => {
-        srchbooks.map(el => {
-          el.shelf = 'none';
+        BooksAPI.getAll().then(listbooks => {
+          let result = lodash.unionBy(listbooks, srchbooks, 'id');
+          this.setState({ books: result.slice(1, 22) });
         });
-        //console.log('iam here in srch2', this.props.books);
-
-        //  books: books.filter(c => book.id !== books.id);
-        //  console.log('iam here in srch2', books);
-
-        this.setState({ books: srchbooks });
       });
-      console.log('iam here in srch21', this.props.books);
     }
   }
 
@@ -76,12 +71,16 @@ class SearchBooks extends Component {
                           width: 128,
                           height: 193,
                           backgroundImage:
-                            'url(' + book.imageLinks.thumbnail + ')'
+                            'url(' +
+                            (book.imageLinks
+                              ? book.imageLinks.thumbnail
+                              : 'https://books.google.com/googlebooks/images/no_cover_thumb.gif') +
+                            ')'
                         }}
                       />
                       <div className="book-shelf-changer">
                         <select
-                          value={book.shelf}
+                          value={book.shelf ? book.shelf : 'none'}
                           onChange={event =>
                             onUpdateShelfSrch(book, event.target.value)}
                         >
@@ -98,10 +97,10 @@ class SearchBooks extends Component {
                       </div>
                     </div>
                     <div className="book-title">
-                      {' '}{book.title}
+                      {book.title}
                     </div>
                     <div className="book-authors">
-                      {' '}{book.authors}
+                      {book.authors}
                     </div>
                   </div>
                 </li>

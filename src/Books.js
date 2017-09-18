@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import './App.css';
 
 class Books extends Component {
@@ -20,13 +19,17 @@ class Books extends Component {
                   style={{
                     width: 128,
                     height: 193,
-                    backgroundImage: 'url(' + book.imageLinks.thumbnail + ')'
+                    backgroundImage:
+                      'url(' +
+                      (book.imageLinks
+                        ? book.imageLinks.thumbnail
+                        : 'https://books.google.com/googlebooks/images/no_cover_thumb.gif') +
+                      ')'
                   }}
                 />
                 <div className="book-shelf-changer">
                   <select
                     value={book.shelf}
-                    //  onChange={event => this.getChange(event.target.value, book)}
                     onChange={event =>
                       onUpdateShelf(book.id, event.target.value)}
                   >
@@ -44,7 +47,7 @@ class Books extends Component {
                 {book.title}
               </div>
               <div className="book-authors">
-                {book.authors}
+                {book.authors.join(', ')}
               </div>
             </div>
           </li>
