@@ -17,7 +17,7 @@ class BooksApp extends Component {
     });
   }
 
-  // function used when the shelf is update in the search page
+  // function used when the shelf is updated in the search page
   onUpdateShelfSrch = (book, shelf) => {
     let bookList = this.state.books;
     //If the user updates the same book which is already in state then remove it

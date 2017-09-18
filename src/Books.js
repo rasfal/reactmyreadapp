@@ -5,7 +5,7 @@ class Books extends Component {
   render() {
     const { books, onUpdateShelf } = this.props;
 
-    let listBooks; // This variable filters the books array to match with the shelf passed
+    let listBooks; // This variable places the books in their respective shelves
     listBooks = books.filter(book => book.shelf === this.props.shelves);
 
     return (
@@ -47,7 +47,7 @@ class Books extends Component {
                 {book.title}
               </div>
               <div className="book-authors">
-                {book.authors.join(', ')}
+                {book.authors ? book.authors.join(', ') : book.authors}
               </div>
             </div>
           </li>
