@@ -10,6 +10,6 @@ The search page provides an option to search a list of books, API providing the 
 Setup/Start
 ===========
 
-npm install
+`npm install`
 
-To start: use npm start
+To start: use `npm start`
